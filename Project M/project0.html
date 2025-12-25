@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Маша, вопрос жизни и пиздеца 😈</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #ff9aa2, #ff3d81);
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      text-align: center;
+      animation: bgPulse 4s infinite;
+    }
+    @keyframes bgPulse { 0%{filter:hue-rotate(0)} 50%{filter:hue-rotate(20deg)} 100%{filter:hue-rotate(0)} }
+    .card {
+      position: relative;
+      background: #fff;
+      padding: 36px 28px 40px;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      max-width: 440px;
+      z-index: 2;
+    }
+    h1 { color: #ff2e63; margin-bottom: 10px; }
+    p { font-size: 18px; line-height: 1.4; }
+    .glitch { animation: glitch 1.8s infinite; }
+    @keyframes glitch { 0%{text-shadow:none} 50%{text-shadow:2px 0 #ff2e63,-2px 0 #00e5ff} 100%{text-shadow:none} }
+    .buttons { margin-top: 14px; }
+    button {
+      margin: 10px;
+      padding: 14px 24px;
+      font-size: 17px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    }
+    button:active { transform: scale(.95); }
+    #yes { background: linear-gradient(135deg,#2ecc71,#1abc9c); color:#fff; }
+    #no { background: linear-gradient(135deg,#e74c3c,#c0392b); color:#fff; position: absolute; }
+    .badge { position:absolute; top:-12px; right:-12px; background:#000; color:#fff; padding:6px 10px; border-radius:999px; font-size:12px; }
+    .hearts span {
+      position: absolute; bottom: -40px; font-size: 24px; animation: floatUp linear infinite; opacity: .85;
+    }
+    @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+    .shake { animation: shake .35s linear; }
+    @keyframes shake { 0%{transform:translate(0)} 25%{transform:translate(-3px,3px)} 50%{transform:translate(3px,-3px)} 75%{transform:translate(-3px,3px)} 100%{transform:translate(0)} }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card" id="card">
+    <div class="badge">без тормозов</div>
+    <h1 class="glitch">Маша… 😳</h1>
+    <p>Я не буду ходить вокруг да около.</p>
+    <p>Ты мне <strong>охуенно</strong> нравишься. Прям <strong>пиздец</strong> как.</p>
+    <p>Я настолько поплыл(а), что сделал(а) для тебя сайт. Да, я больной(ая) — но по тебе 💘</p>
+    <p><strong>Давай мутить?</strong> 🔥</p>
+
+    <div class="buttons">
+      <button id="yes" onclick="YES()">ДА, БЛЯ 💖</button>
+      <button id="no" onmouseover="NOPE()" onclick="NOPE()">НЕТ (ха-ха, щас)</button>
+    </div>
+  </div>
+
+  <audio id="ding" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAAAA="></audio>
+
+  <script>
+    const hearts = document.getElementById('hearts');
+    function spawnHearts(count=12){
+      for(let i=0;i<count;i++){
+        const s=document.createElement('span');
+        s.textContent=['💖','💘','🔥','😈','😍'][Math.floor(Math.random()*5)];
+        s.style.left=Math.random()*100+'vw';
+        s.style.animationDuration=(3+Math.random()*3)+'s';
+        hearts.appendChild(s);
+        setTimeout(()=>s.remove(),7000);
+      }
+    }
+    setInterval(()=>spawnHearts(4),900);
+
+    function YES(){
+      document.getElementById('ding').play();
+      document.body.innerHTML = `
+        <div style="height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#fff0f6,#ff4d6d);text-align:center;">
+          <div class="shake">
+            <h1 style="color:#ff2e63;">ЕБАТЬ, ДААААА 💘🔥</h1>
+            <p style="font-size:20px;">Я знал(а), что ты скажешь «ДА» 😏</p>
+            <p style="font-size:18px;">С этого момента мы мутим официально.<br>И это, блин, охуенно.</p>
+            <p style="font-size:18px;">Маша + Я = ❤️ (без вариантов)</p>
+          </div>
+        </div>`;
+    }
+
+    function NOPE(){
+      const no=document.getElementById('no');
+      const card=document.getElementById('card');
+      const x=(Math.random()*260)-130;
+      const y=(Math.random()*200)-100;
+      no.style.transform=`translate(${x}px,${y}px)`;
+      card.classList.add('shake');
+      setTimeout(()=>card.classList.remove('shake'),300);
+    }
+  </script>
+</body>
+</html>

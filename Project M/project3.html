@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Маша, тест с подвохами 😈</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #ff9aa2, #ff3d81);
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      padding: 36px 28px 40px;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      max-width: 480px;
+    }
+    h1 { color: #ff2e63; }
+    p { font-size: 18px; line-height: 1.4; }
+    .small { font-size:14px; opacity:.7 }
+    .hint { font-size:14px; opacity:.85; margin-top:6px }
+    button {
+      margin: 10px;
+      padding: 14px 24px;
+      font-size: 17px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+    .yes { background:#2ecc71; color:#fff; }
+    .no { background:#e74c3c; color:#fff; position: relative; }
+    .fake { background:#9b59b6; color:#fff; }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="app"></div>
+
+  <script>
+    let step = 0;
+
+    const steps = [
+      { html: `
+        <h1>Маша 😳</h1>
+        <p>Это тест с подвохами.</p>
+        <p class="small">Если ищешь правильные ответы — их тут нет 😈</p>
+        <button class="yes" onclick="next()">Погнали</button>
+      `},
+      { html: `
+        <h1>Вопрос №1</h1>
+        <p>Ты сегодня выглядишь охуенно?</p>
+        <button class="yes" onclick="next()">Да</button>
+        <button class="yes" onclick="next()">Очень да</button>
+        <div class="hint">Подсказка: другие варианты сломались</div>
+      `},
+      { html: `
+        <h1>Вопрос №2 (подъёб)</h1>
+        <p>Выбери вариант, где ты НЕ красивая:</p>
+        <button class="fake" onclick="troll()">Вот этот</button>
+        <button class="yes" onclick="next()">Такого варианта нет 😏</button>
+        <button class="fake" onclick="troll()">Или этот</button>
+      `},
+      { html: `
+        <h1>Вопрос №3</h1>
+        <p>Как ты относишься к людям, которые тебя смешат?</p>
+        <button class="yes" onclick="next()">Они мне нравятся</button>
+        <button class="yes" onclick="next()">Я к ним привязываюсь</button>
+      `},
+      { html: `
+        <h1>Clash Royale 🏆</h1>
+        <p>Что сильнее?</p>
+        <button class="yes" onclick="next()">Мега-рыцарь на мосту</button>
+        <button class="yes" onclick="next()">Маша, когда злится 😈</button>
+        <div class="hint">Спойлер: оба варианта опасные</div>
+      `},
+      { html: `
+        <h1>Clash Royale (ещё чуть-чуть)</h1>
+        <p>Лучшая стратегия:</p>
+        <button class="yes" onclick="next()">Играть умно</button>
+        <button class="yes" onclick="next()">Давить всем, как чувствую</button>
+        <button class="yes" onclick="next()">Как Маша — и всё работает</button>
+      `},
+      { html: `
+        <h1>Вопрос с подвохом</h1>
+        <p>Этот тест тебя бесит?</p>
+        <button class="yes" onclick="next()">Нет, он милый</button>
+        <button class="yes" onclick="next()">Да, но мне нравится 😅</button>
+      `},
+      { html: `
+        <h1>Почти финиш…</h1>
+        <p>Ты уже поняла, к чему всё идёт?</p>
+        <button class="yes" onclick="next()">Кажется, да 😳</button>
+        <button class="yes" onclick="next()">Я догадываюсь…</button>
+      `},
+      { html: `
+        <h1>Последний вопрос</h1>
+        <p>Я не буду тянуть.</p>
+        <p>Ты мне <strong>охуенно</strong> нравишься.<br>Прям пиздец как.</p>
+        <p><strong>Давай мутить? 🔥💖</strong></p>
+        <button class="yes" onclick="yes()">ДА, БЛЯ 💘</button>
+        <button class="no" onmouseover="move(this)">НЕТ 😅</button>
+      `}
+    ];
+
+    function render() {
+      document.getElementById('app').innerHTML = steps[step].html;
+    }
+
+    function next() {
+      step++;
+      render();
+    }
+
+    function troll(){
+      alert('Неправильно 😈\nПравильного ответа не существует.');
+    }
+
+    function yes() {
+      document.body.innerHTML = `
+        <div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#ffe6f0;text-align:center;">
+          <div>
+            <h1 style="color:#ff2e63;">ЕБАТЬ, ДАААА 💘🔥</h1>
+            <p style="font-size:20px;">Я знал(а), что ты дойдёшь до конца 😏</p>
+            <p style="font-size:18px;">Теперь мы мутим. Официально.<br>И это ахуенно.</p>
+            <p style="font-size:18px;">Маша + Я = ❤️</p>
+          </div>
+        </div>`;
+    }
+
+    function move(btn) {
+      btn.style.transform = `translate(${Math.random()*220-110}px, ${Math.random()*180-90}px)`;
+    }
+
+    render();
+  </script>
+</body>
+</html>
